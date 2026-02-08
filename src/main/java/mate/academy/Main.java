@@ -14,11 +14,12 @@ public class Main {
 
     public static void main(String[] args) {
         AuthenticationService authenticationService = new AuthenticationServiceImpl();
-        User user;
+        User user = new User("bob", "1234");
         try {
-            user = authenticationService.login("bob", "12f34");
+            user = authenticationService.login(user.getLogin(), user.getPassword());
         } catch (AuthenticationException e) {
-            logger.error("Can't login", e);
+            logger.error("Authentification failed for user: {} - {}",
+                    user.getLogin(), e.getMessage());
             return;
         }
         OrderService orderService = new OrderServiceImpl();
