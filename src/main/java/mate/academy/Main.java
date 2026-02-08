@@ -15,11 +15,12 @@ public class Main {
     public static void main(String[] args) {
         AuthenticationService authenticationService = new AuthenticationServiceImpl();
         User user = new User("bob", "1234");
+        String login = user.getLogin();
         try {
             user = authenticationService.login(user.getLogin(), user.getPassword());
         } catch (AuthenticationException e) {
-            logger.error("Authentification failed for user: {} - {}",
-                    user.getLogin(), e.getMessage());
+            logger.error("Authentication failed for user: {} - {}",
+                    login, e.getMessage(), e);
             return;
         }
         OrderService orderService = new OrderServiceImpl();
